@@ -80,11 +80,9 @@ $(document).on("pageshow","#mainpage",function(){
                      var data=JSON.parse(e.data);
 						if(data.device1==0&&data.device2==0){
 							$(".centralizer>h1").hide();
+							$(".top>h1").hide();
 							var op=trigger_action(data.operation);
 							$("#op").html('Test Performed<br/>'+MasterData[op].type+" "+MasterData[op].op+"<br/>"+"File Size : "+MasterData[op].size);
-						}
-						else{
-							
 						}
                  }
 				 longpollerWorker.postMessage(id);
