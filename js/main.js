@@ -81,8 +81,14 @@ $(document).on("pageshow","#mainpage",function(){
 						if(data.device1==0&&data.device2==0){
 							$(".centralizer>h1").hide();
 							$(".top>h1").hide();
+							$("#op").show();
 							var op=trigger_action(data.operation);
 							$("#op").html('Test Performed<br/>'+MasterData[op].type+" "+MasterData[op].op+"<br/>"+"File Size : "+MasterData[op].size);
+						}
+						else{
+							$(".centralizer>h1").show();
+							$(".top>h1").show();
+							$("#op").hide();
 						}
                  }
 				 longpollerWorker.postMessage(id);
