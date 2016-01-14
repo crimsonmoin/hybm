@@ -168,7 +168,7 @@ input [type="radio"]{
 }
 .bottom{
 	position:fixed;
-	bottom:20px;
+	bottom:40px;
 	width:100%;
 	text-align:center;
 }
