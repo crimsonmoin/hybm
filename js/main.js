@@ -121,10 +121,16 @@ $(document).on("pageshow","#mainpage",function(){
 	}
 	function trigger_action(ty){
 		switch(ty){
-			case 'ppt1' : uploadFile('ppt1.pptx', 'Download', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+			case 'ppt1' : 
+			alert('upload starting');
+			uploadFile('ppt1.pptx', 'Download', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+			alert('upload started');
 			return 0;
 			break;
-			case 'ppt2' : uploadFile('ppt2.pptx', 'Download', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+			case 'ppt2' : 
+			alert('upload starting');
+			uploadFile('ppt2.pptx', 'Download', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+			alert('upload started');
 			return 1;
 			break;
 			case 'image1' : return 2;break;
