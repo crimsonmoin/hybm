@@ -133,10 +133,17 @@ input [type="radio"]{
   background-size: cover;
 }
 .top{
-	margin-left:50%;
 	margin-top:5%;
 }
 .top>h1{
+	margin-left:50%;
+	color:white;
+	font-size:90px;
+	font-family: 'vodafonebold';
+	text-align:left;
+}
+.top>h1#op{
+	margin-left:40%;
 	color:white;
 	font-size:90px;
 	font-family: 'vodafonebold';
@@ -152,6 +159,7 @@ input [type="radio"]{
 	color:rgb(129,130,133);
 	font-family: 'vodafonebold';
 	font-size:100px;
+	text-transform:uppercase;
 }
 .centralizer>.progress h1{
 	color:rgb(233,0,0);

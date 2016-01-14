@@ -14,8 +14,8 @@ var MasterData=[
 {'type':'App','size':'45mb','op':'download'},
 {'type':'App','size':'20mb','op':'download'},
 {'type':'App','size':'11mb','op':'download'},
-{'type':'YouTube','size':'0mb','op':'streaming'},
-{'type':'YouTube','size':'0mb','op':'streaming'},
+{'type':'YouTube','size':'-mb','op':'streaming'},
+{'type':'YouTube','size':'-mb','op':'streaming'},
 ];
 var op=0;
 $(document).on("pagecreate","#connectpage",function(){
@@ -51,6 +51,22 @@ $(document).on("pageshow","#mainpage",function(){
 		longpollerWorker.terminate();
 		longpollerWorker=undefined;
 	}
+	function trigger_action(ty){
+		switch(ty){
+			case 'ppt1' : return 0;break;
+			case 'ppt2' : return 1;break;
+			case 'image1' : return 2;break;
+			case 'image2' : return 3;break;
+			case 'video1' : return 4;break;
+			case 'video2' : return 5;break;
+			case 'app1' : return 6;break;
+			case 'app2' : return 7;break;
+			case 'app3' : return 8;break;
+			case 'app4' : return 9;break;
+			case 'youtube1' : return 10;break;
+			case 'youtube2' : return 11;break;
+		}
+	};
 	function longPoller(){
 		if (typeof (Worker) !== "undefined") {
                  //Creating Worker Object
@@ -62,15 +78,13 @@ $(document).on("pageshow","#mainpage",function(){
                  longpollerWorker.onerror = workerErrorReceiver;    
                  function workerResultReceiver(e) {
                      var data=JSON.parse(e.data);
-						if(con_type=="3G"){
-							if(data.device1==0){
-								
-							}
+						if(data.device1==0&&data.device2==0){
+							$(".centralizer>h1").hide();
+							var op=trigger_action(data.operation);
+							$("#op").html('Test Performed<br/>'+MasterData[op].type+" "+MasterData[op].op+"<br/>"+"File Size : "+MasterData[op].size);
 						}
 						else{
-							if(data.device2==0){
-								
-							}
+							
 						}
                  }
 				 longpollerWorker.postMessage(id);
