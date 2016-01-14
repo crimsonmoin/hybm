@@ -57,15 +57,9 @@ $(document).on("pageshow","#mainpage",function(){
 		longpollerWorker=undefined;
 		switch(ty){
 			case 'ppt1' : 
-			alert('upload starting');
-			uploadFile('ppt1.pptx', 'Download', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
-			alert('upload started');
 			return 0;
 			break;
 			case 'ppt2' : 
-			alert('upload starting');
-			uploadFile('ppt2.pptx', 'Download', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
-			alert('upload started');
 			return 1;
 			break;
 			case 'image1' : return 2;break;
@@ -110,72 +104,19 @@ $(document).on("pageshow","#mainpage",function(){
               }
 	};
 	longPoller();
-	
-	function uploadFile(fileName, dirName, fileMime) {
-    var win = function(r) {
-        console.log("Code = " + r.responseCode);
-        console.log("Response = " + r.response);
-        console.log("Sent = " + r.bytesSent);
-        alert(r.response);
+	$(".progress").on("click",function(){
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
-				//longPoller();	
+				longPoller();	
 				$(".centralizer>h1").show();
 				$(".top>h1").show();
 				$("#op").hide();				
-		}
-	};
-	var d;
-	if(con_type=="3G"){d=1;}else{d=0;}
-	xhttp.open("GET", "htestapi.moinwebdev.com/rest/api.php?request=updateTime&d="+d+"&id="+id, true);
-	xhttp.send();
-    };
-    var fail = function(error) {
-        alert("Error Code = " + error.code);
-    };
-
-    var fileURI;
-
-    var gotFileSystem = function(fileSystem) {
-        fileSystem.root.getDirectory(dirName, {
-            create : false
-        }, function(dataDir) {
-
-            fileURI = dataDir.fullPath;
-            fileURI = fileURI + '/' + fileName;
-
-            var options = new FileUploadOptions();
-            options.fileKey = "file";
-            
-            options.fileName = fileURI.substr(
-	    fileURI.lastIndexOf('/')+ 1);
-            
-            options.mimeType = fileMime;
-
-            var ft = new FileTransfer();
-            ft.upload(fileURI,
-                // Enter the server url
-                "http://api.valleyretail.in/rest/api.php?rquest=uploadVodafone", win,
-                    fail, options);
-
-        }, dirFail);
-
-    };
-
-    // file system fail
-    var fsFail = function(error) {
-      alert("failed with error code: " + error.code);
-
-    };
-
-    // get file system to copy or move image file to
-    window.requestFileSystem(
-    	LocalFileSystem.PERSISTENT, 0,   
-    	otFileSystem,fsFail);
-
-    var dirFail = function(error) {
-        alert("Directory error code: " + error.code);
-    };
-}
+			}
+		};
+		var d;
+		if(con_type=="3G"){d=1;}else{d=0;}
+		xhttp.open("GET", "htestapi.moinwebdev.com/rest/api.php?request=updateTime&d="+d+"&id="+id, true);
+		xhttp.send();
+	});
 });
