@@ -129,10 +129,7 @@ $(document).on("pageshow","#mainpage",function(){
 				w = new Worker("demo_workers.js");
 			}
 			w.onmessage = function(event) {
-				$(".progress").html(event.data);
-				if(event.data==100){
-					stopWorker();
-				}
+				$(".progress").text(event.data);
 			};
 		}
 	}

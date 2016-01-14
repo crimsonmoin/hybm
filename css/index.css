@@ -161,7 +161,7 @@ input [type="radio"]{
 	font-size:100px;
 	text-transform:uppercase;
 }
-.centralizer>.progress h1{
+.centralizer>.progress{
 	color:rgb(233,0,0);
 	font-size:150px;
 	font-family:'timer';
