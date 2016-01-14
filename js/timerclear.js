@@ -5,7 +5,7 @@ function clear() {
 postMessage(xhttp.responseText);
     }
   };
-  xhttp.open("GET", "http://testapi.moinwebdev.com/rest/api.php?request=clearTimer", true);
+  xhttp.open("GET", "http://testapi.moinwebdev.com/rest/api.php?request=clearTimer&id=1", true);
   xhttp.send();
 }
 clear();

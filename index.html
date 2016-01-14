@@ -7,32 +7,59 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 		<!-- Include jQuery Mobile stylesheets -->
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
 		<!-- Include the jQuery library -->
-		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="js/jquery.min.js"></script>
 		<script>
 			$(document).bind('mobileinit',function(){
 				$.mobile.pushStateEnabled = false;
 			});
 		</script>
 		<!-- Include the jQuery Mobile library -->
-		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<script src="js/jquery.mobile-1.4.5.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Vodafone 4G</title>
     </head>
     <body>
+		<div data-role="page" data-theme="b" id="connectpage">
+		  <div data-role="header" data-position="fixed">
+			<h1>Vodafone 4G</h1>
+		  </div>
+		  <div data-role="main" class="ui-content">
+			<label for="txtid">Store Id</label>
+			<input type="number" id="txtid"/>
+			<fieldset data-role="controlgroup" data-type="horizontal">
+		        <legend>Connection Type</legend>
+		        <input type="radio" name="con" id="radio-choice-h-2a" value="3G" checked="checked">
+		        <label for="radio-choice-h-2a">3G</label>
+		        <input type="radio" name="con" id="radio-choice-h-2b" value="4G">
+		        <label for="radio-choice-h-2b">4G</label>
+		    </fieldset>
+			<button type="button" class="ui-btn ui-btn-inline">Connect</button>
+		  </div>
+		  <div data-role="footer" data-position="fixed">
+			<h1>V 1.0</h1>
+		  </div>
+		</div> 
 		<div data-role="page" id="mainpage">
+			<div class="top">
+				<h1>Interactive<br/>3G-4G<br/>Demo</h1>
+			</div>
 			<div class="centralizer">
 				<h1>Touch the tablet to launch demo</h1>
 				<div class="progress"><h1>00%</h1></div>
 			</div>
+			<div class="bottom">
+				<h1 id="other_op">3G - Other Operators</h1>
+				<img src="img/vodafone-logo.png" height="300px" width="300px" id="vodafone_logo"/>
+				<img src="img/logo-4g.png" height="300px" width="300px" id="logo_4g"/>
+			</div>
 		</div> 
-	    <script type="text/javascript" src="cordova.js"></script>
+	    <!--<script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
-        </script>
-		<script src="js/timer.jquery.js"></script>
+        </script>-->
 		<script type="text/javascript" src="js/main.js"></script>
     </body>
 </html>
