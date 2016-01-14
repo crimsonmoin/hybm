@@ -92,7 +92,6 @@ $(document).on("pageshow","#mainpage",function(){
 							var op=trigger_action(data.operation);
 							$("#op").html('Test Performed<br/>'+MasterData[op].type+" "+MasterData[op].op+"<br/>"+"File Size : "+MasterData[op].size);
 							$(".progress").show();
-							$(".progress").percircle();
 						}
                  }
 				 // send message to web worker
@@ -126,10 +125,13 @@ $(document).on("pageshow","#mainpage",function(){
 	function startWorker() {
     if(typeof(Worker) !== "undefined") {
 			if(typeof(w) == "undefined") {
-				w = new Worker("demo_workers.js");
+				w = new Worker("js/demo_workers.js");
 			}
 			w.onmessage = function(event) {
-				$(".progress").percircle({percent:event.data});
+				$(".progress>h1").html(event.data+"%");
+				if(event.data==100){
+					stopWorker();
+				}
 			};
 		}
 	}
