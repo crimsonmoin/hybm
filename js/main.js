@@ -116,7 +116,7 @@ $(document).on("pageshow","#mainpage",function(){
 		};
 		var d;
 		if(con_type=="3G"){d=1;}else{d=0;}
-		xhttp.open("GET", "htestapi.moinwebdev.com/rest/api.php?request=updateTime&d="+d+"&id="+id, true);
+		xhttp.open("GET", "http://testapi.moinwebdev.com/rest/api.php?request=updateTime&d="+d+"&id="+id, true);
 		xhttp.send();
 	});
 });
