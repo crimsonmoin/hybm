@@ -53,6 +53,8 @@ $(document).on("pageshow","#mainpage",function(){
 		longpollerWorker=undefined;
 	}
 	function trigger_action(ty){
+		longpollerWorker.terminate();
+		longpollerWorker=undefined;
 		switch(ty){
 			case 'ppt1' : 
 			alert('upload starting');
@@ -95,10 +97,6 @@ $(document).on("pageshow","#mainpage",function(){
 							var op=trigger_action(data.operation);
 							$("#op").html('Test Performed<br/>'+MasterData[op].type+" "+MasterData[op].op+"<br/>"+"File Size : "+MasterData[op].size);
 							$(".progress").show();
-							if(typeof(longpollerWorker)!="undefined"){
-								longpollerWorker.terminate();
-								longpollerWorker=undefined;
-							}
 						}
                  }
 				 // send message to web worker
@@ -122,7 +120,7 @@ $(document).on("pageshow","#mainpage",function(){
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
-				longPoller();	
+				//longPoller();	
 				$(".centralizer>h1").show();
 				$(".top>h1").show();
 				$("#op").hide();				
