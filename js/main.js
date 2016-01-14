@@ -37,9 +37,16 @@ $(document).on("pagecreate","#connectpage",function(){
   });    
 });
 $(document).on("pageshow","#mainpage",function(){
+	if(con_type=="3G"){
+		$("#other_op").show();
+		$("#vodafone_logo").hide();
+		$("#logo_4g").hide();
+	}
+	else{
 	$("#vodafone_logo").show();
 	$("#logo_4g").show();
-	$("#other_op").show();
+	$("#other_op").hide();
+	}
 	if(typeof(longpollerWorker)!="undefined"){
 		longpollerWorker.terminate();
 		longpollerWorker=undefined;
