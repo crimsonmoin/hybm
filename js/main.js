@@ -18,73 +18,6 @@ var MasterData=[
 {'type':'YouTube','size':'-mb','op':'streaming'},
 ];
 var op=0;
-function uploadFile(fileName, dirName, fileMime) {
-    var win = function(r) {
-        console.log("Code = " + r.responseCode);
-        console.log("Response = " + r.response);
-        console.log("Sent = " + r.bytesSent);
-        alert(r.response);
-		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
-		if (xhttp.readyState == 4 && xhttp.status == 200) {
-			var res=JSON.parse(xhttp.responseText);
-			if(res.status=="Success"&&res.device1==0&&res.device2==0){		
-			}
-		}
-	};
-	var d;
-	if(con_type=="3G"){d=1;}else{d=0;}
-	xhttp.open("GET", "htestapi.moinwebdev.com/rest/api.php?request=updateTime&d="+d+"&id="+id, true);
-	xhttp.send();
-    };
-    var fail = function(error) {
-        alert("Error Code = " + error.code);
-    };
-
-    var fileURI;
-
-    var gotFileSystem = function(fileSystem) {
-        fileSystem.root.getDirectory(dirName, {
-            create : false
-        }, function(dataDir) {
-
-            fileURI = dataDir.fullPath;
-            fileURI = fileURI + '/' + fileName;
-
-            var options = new FileUploadOptions();
-            options.fileKey = "file";
-            
-            options.fileName = fileURI.substr(
-	    fileURI.lastIndexOf('/')+ 1);
-            
-            options.mimeType = fileMime;
-
-            var ft = new FileTransfer();
-            ft.upload(fileURI,
-                // Enter the server url
-                "http://api.valleyretail.in/rest/api.php?rquest=uploadVodafone", win,
-                    fail, options);
-
-        }, dirFail);
-
-    };
-
-    // file system fail
-    var fsFail = function(error) {
-      alert("failed with error code: " + error.code);
-
-    };
-
-    // get file system to copy or move image file to
-    window.requestFileSystem(
-    	LocalFileSystem.PERSISTENT, 0,   
-    	otFileSystem,fsFail);
-
-    var dirFail = function(error) {
-        alert("Directory error code: " + error.code);
-    };
-}
-
 $(document).on("pagecreate","#connectpage",function(){
   $("button").on("click",function(){
 	  id=$("#txtid").val();
@@ -162,21 +95,9 @@ $(document).on("pageshow","#mainpage",function(){
 							var op=trigger_action(data.operation);
 							$("#op").html('Test Performed<br/>'+MasterData[op].type+" "+MasterData[op].op+"<br/>"+"File Size : "+MasterData[op].size);
 							$(".progress").show();
-						}
-						else{
-							if(con_type=="4G"){
-								if(data.device1==1){
-									$(".centralizer>h1").show();
-									$(".top>h1").show();
-									$("#op").hide();
-								}
-							}
-							else{
-								if(data.device2==1){
-									$(".centralizer>h1").show();
-									$(".top>h1").show();
-									$("#op").hide();
-								}
+							if(typeof(longpollerWorker)!="undefined"){
+								longpollerWorker.terminate();
+								longpollerWorker=undefined;
 							}
 						}
                  }
@@ -191,4 +112,72 @@ $(document).on("pageshow","#mainpage",function(){
               }
 	};
 	longPoller();
+	
+	function uploadFile(fileName, dirName, fileMime) {
+    var win = function(r) {
+        console.log("Code = " + r.responseCode);
+        console.log("Response = " + r.response);
+        console.log("Sent = " + r.bytesSent);
+        alert(r.response);
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+				longPoller();	
+				$(".centralizer>h1").show();
+				$(".top>h1").show();
+				$("#op").hide();				
+		}
+	};
+	var d;
+	if(con_type=="3G"){d=1;}else{d=0;}
+	xhttp.open("GET", "htestapi.moinwebdev.com/rest/api.php?request=updateTime&d="+d+"&id="+id, true);
+	xhttp.send();
+    };
+    var fail = function(error) {
+        alert("Error Code = " + error.code);
+    };
+
+    var fileURI;
+
+    var gotFileSystem = function(fileSystem) {
+        fileSystem.root.getDirectory(dirName, {
+            create : false
+        }, function(dataDir) {
+
+            fileURI = dataDir.fullPath;
+            fileURI = fileURI + '/' + fileName;
+
+            var options = new FileUploadOptions();
+            options.fileKey = "file";
+            
+            options.fileName = fileURI.substr(
+	    fileURI.lastIndexOf('/')+ 1);
+            
+            options.mimeType = fileMime;
+
+            var ft = new FileTransfer();
+            ft.upload(fileURI,
+                // Enter the server url
+                "http://api.valleyretail.in/rest/api.php?rquest=uploadVodafone", win,
+                    fail, options);
+
+        }, dirFail);
+
+    };
+
+    // file system fail
+    var fsFail = function(error) {
+      alert("failed with error code: " + error.code);
+
+    };
+
+    // get file system to copy or move image file to
+    window.requestFileSystem(
+    	LocalFileSystem.PERSISTENT, 0,   
+    	otFileSystem,fsFail);
+
+    var dirFail = function(error) {
+        alert("Directory error code: " + error.code);
+    };
+}
 });
