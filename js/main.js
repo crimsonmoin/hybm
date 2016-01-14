@@ -129,7 +129,7 @@ $(document).on("pageshow","#mainpage",function(){
 				w = new Worker("demo_workers.js");
 			}
 			w.onmessage = function(event) {
-				$(".progress").text(event.data);
+				$(".progress").attr("data-percent",event.data);
 			};
 		}
 	}
