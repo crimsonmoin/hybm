@@ -92,7 +92,7 @@ $(document).on("pageshow","#mainpage",function(){
 							var op=trigger_action(data.operation);
 							$("#op").html('Test Performed<br/>'+MasterData[op].type+" "+MasterData[op].op+"<br/>"+"File Size : "+MasterData[op].size);
 							$(".progress").show();
-							$('.progress').circleGraphic({'color':'#E53238'});
+							$(".progress").percircle();
 						}
                  }
 				 // send message to web worker
@@ -115,11 +115,10 @@ $(document).on("pageshow","#mainpage",function(){
 				$(".top>h1").show();
 				$("#op").hide();				
 				$(".progress").hide();
-				$(".progress").percircle();
 			}
 		};
 		var d;
-		if(con_type=="3G"){d=0;}else{d=1;}
+		if(con_type=="3G"){d=1;}else{d=0;}
 		xhttp.open("GET", "http://testapi.moinwebdev.com/rest/api.php?request=updateTime&d="+d+"&id="+id, true);
 		xhttp.send();
 	}
@@ -130,7 +129,7 @@ $(document).on("pageshow","#mainpage",function(){
 				w = new Worker("demo_workers.js");
 			}
 			w.onmessage = function(event) {
-				$(".progress").attr("data-percent",event.data);
+				$(".progress").percircle({percent:event.data});
 			};
 		}
 	}
