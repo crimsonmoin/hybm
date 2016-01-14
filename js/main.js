@@ -73,7 +73,6 @@ $(document).on("pageshow","#mainpage",function(){
                  longpollerWorker = new Worker("js/longpolling.js");
                  //Call Back Function for Success
                  longpollerWorker.onmessage = workerResultReceiver;
-				 // send message to web worker
                  //Call Back function if some error occurred
                  longpollerWorker.onerror = workerErrorReceiver;    
                  function workerResultReceiver(e) {
@@ -86,11 +85,23 @@ $(document).on("pageshow","#mainpage",function(){
 							$("#op").html('Test Performed<br/>'+MasterData[op].type+" "+MasterData[op].op+"<br/>"+"File Size : "+MasterData[op].size);
 						}
 						else{
-							$(".centralizer>h1").show();
-							$(".top>h1").show();
-							$("#op").hide();
+							if(con_type=="3G"){
+								if(data.device1==1){
+									$(".centralizer>h1").show();
+									$(".top>h1").show();
+									$("#op").hide();
+								}
+							}
+							else{
+								if(data.device2==1){
+									$(".centralizer>h1").show();
+									$(".top>h1").show();
+									$("#op").hide();
+								}
+							}
 						}
                  }
+				 // send message to web worker
 				 longpollerWorker.postMessage(id);
                  function workerErrorReceiver(e) {
                      console.log("there was a problem with the WebWorker within " + e);
