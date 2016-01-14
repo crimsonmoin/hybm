@@ -55,6 +55,7 @@ $(document).on("pageshow","#mainpage",function(){
 	function trigger_action(ty){
 		longpollerWorker.terminate();
 		longpollerWorker=undefined;
+		startWorker();
 		switch(ty){
 			case 'ppt1' : 
 			return 0;
@@ -91,6 +92,7 @@ $(document).on("pageshow","#mainpage",function(){
 							var op=trigger_action(data.operation);
 							$("#op").html('Test Performed<br/>'+MasterData[op].type+" "+MasterData[op].op+"<br/>"+"File Size : "+MasterData[op].size);
 							$(".progress").show();
+							$('.progress').circleGraphic({'color':'#E53238'});
 						}
                  }
 				 // send message to web worker
@@ -104,7 +106,7 @@ $(document).on("pageshow","#mainpage",function(){
               }
 	};
 	longPoller();
-	$(".progress").on("click",function(){
+	function stopTimer(){
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -119,5 +121,24 @@ $(document).on("pageshow","#mainpage",function(){
 		if(con_type=="3G"){d=0;}else{d=1;}
 		xhttp.open("GET", "http://testapi.moinwebdev.com/rest/api.php?request=updateTime&d="+d+"&id="+id, true);
 		xhttp.send();
-	});
+	}
+	var w;
+	function startWorker() {
+    if(typeof(Worker) !== "undefined") {
+			if(typeof(w) == "undefined") {
+				w = new Worker("demo_workers.js");
+			}
+			w.onmessage = function(event) {
+				$(".progress").html(event.data);
+				if(event.data==100){
+					stopWorker();
+				}
+			};
+		}
+	}
+	function stopWorker() { 
+		w.terminate();
+		w = undefined;
+		stopTimer();
+	}
 });
