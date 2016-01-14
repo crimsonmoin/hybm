@@ -115,6 +115,7 @@ $(document).on("pageshow","#mainpage",function(){
 				$(".top>h1").show();
 				$("#op").hide();				
 				$(".progress").hide();
+				$(".progress").percircle();
 			}
 		};
 		var d;
