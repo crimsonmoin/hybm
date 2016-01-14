@@ -133,20 +133,19 @@ input [type="radio"]{
   background-size: cover;
 }
 .top{
-	margin-left:50%;
+	margin-left:35%;
 	margin-top:5%;
-	text-align:left;
-	color:white;
 }
 .top>h1{
 	color:white;
 	font-size:90px;
 	font-family: 'vodafonebold';
+	text-align:left;
 }
 .centralizer{
 	width:70%;
 	margin-left:15%;
-	margin-top:75%;
+	margin-top:55%;
 	text-align:center;
 }
 .centralizer>h1{
