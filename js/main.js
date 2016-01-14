@@ -112,10 +112,11 @@ $(document).on("pageshow","#mainpage",function(){
 				$(".centralizer>h1").show();
 				$(".top>h1").show();
 				$("#op").hide();				
+				$(".progress").hide();
 			}
 		};
 		var d;
-		if(con_type=="3G"){d=1;}else{d=0;}
+		if(con_type=="3G"){d=0;}else{d=1;}
 		xhttp.open("GET", "http://testapi.moinwebdev.com/rest/api.php?request=updateTime&d="+d+"&id="+id, true);
 		xhttp.send();
 	});
